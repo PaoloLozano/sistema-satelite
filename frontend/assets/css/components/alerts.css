@@ -1,0 +1,48 @@
+/* Componentes — alertas y avisos (toasts) */
+
+.alert {
+  padding: 13px 16px;
+  border-radius: var(--radius-md);
+  font-size: 13.5px;
+  font-weight: 500;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.alert-error   { background: var(--sem-red-bg);    color: #991B1B; border: 1px solid var(--sem-red-bdr); }
+.alert-warning { background: var(--sem-yellow-bg); color: #92400E; border: 1px solid var(--sem-yellow-bdr); }
+.alert-success { background: var(--sem-green-bg);  color: #166534; border: 1px solid var(--sem-green-bdr); }
+.alert-info    { background: #EFF6FF;              color: #1E40AF; border: 1px solid #BFDBFE; }
+
+/* aviso */
+#contenedor-avisos {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.aviso {
+  background: var(--dark);
+  color: #fff;
+  padding: 13px 18px;
+  border-radius: var(--radius-md);
+  font-size: 13.5px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+  animation: aviso-in 0.25s ease;
+  max-width: 340px;
+}
+.aviso.aviso-exito { border-left: 3px solid var(--sem-green); }
+.aviso.aviso-error   { border-left: 3px solid var(--sem-red); }
+.aviso.aviso-advertencia { border-left: 3px solid var(--sem-yellow); }
+@keyframes aviso-in {
+  from { opacity:0; transform: translateY(12px); }
+  to   { opacity:1; transform: translateY(0); }
+}

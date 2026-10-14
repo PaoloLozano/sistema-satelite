@@ -1,0 +1,123 @@
+/* Componentes — formularios y carga de archivos */
+
+.grupo-campo { margin-bottom: 18px; }
+
+.form-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 7px;
+  letter-spacing: -0.01em;
+}
+
+.form-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 7px;
+}
+
+.form-label-row .form-label { margin-bottom: 0; }
+.form-label-row a { font-size: 13px; font-weight: 600; }
+
+.entrada-pill {
+  width: 100%;
+  padding: 13px 18px;
+  background: var(--input-bg);
+  border: 1.5px solid transparent;
+  border-radius: var(--radius-pill);
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.15s, background 0.15s;
+}
+.entrada-pill::placeholder { color: var(--text-muted); }
+.entrada-pill:focus {
+  background: var(--light);
+  border-color: var(--brand);
+}
+.entrada-pill.campo-invalido { border-color: var(--sem-red); }
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.input-wrapper .entrada-pill { padding-right: 48px; }
+.input-toggle {
+  position: absolute;
+  right: 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  padding: 0;
+}
+
+.form-error {
+  font-size: 12.5px;
+  color: var(--sem-red);
+  margin-top: 6px;
+  display: none;
+}
+.form-error.visible { display: block; }
+
+.selector-pill {
+  width: 100%;
+  padding: 13px 18px;
+  background: var(--input-bg);
+  border: 1.5px solid transparent;
+  border-radius: var(--radius-pill);
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--text);
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  transition: border-color 0.15s;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%239CA3AF' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  padding-right: 44px;
+}
+.selector-pill:focus { border-color: var(--brand); background-color: var(--light); }
+
+.divider-or {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 20px 0;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+.divider-or::before, .divider-or::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* File upload area */
+.upload-zone {
+  border: 2px dashed var(--border);
+  border-radius: var(--radius-lg);
+  padding: 32px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+  background: var(--light-bg);
+}
+.upload-zone:hover { border-color: var(--brand); background: var(--brand-light2); }
+.upload-zone.dragover { border-color: var(--brand); background: var(--brand-light); }
+.upload-icon-wrap {
+  width: 48px; height: 48px;
+  background: var(--input-bg);
+  border-radius: var(--radius-md);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 12px;
+}

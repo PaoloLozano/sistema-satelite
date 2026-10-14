@@ -1,0 +1,63 @@
+/* Layout — estructura principal, encabezados de página y responsive */
+
+.sat-layout {
+  display: flex;
+  min-height: 100vh;
+}
+.sat-content {
+  margin-left: var(--sidebar-w);
+  margin-top: var(--topbar-h);
+  flex: 1;
+  padding: 24px;
+  min-height: calc(100vh - var(--topbar-h));
+}
+
+.page-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--brand);
+  margin-bottom: 6px;
+}
+.page-heading {
+  font-size: 26px;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.page-sub {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+/* Section header */
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+.section-title {
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--text);
+}
+
+@media (max-width: 1024px) {
+  :root { --sidebar-w: 200px; }
+}
+
+@media (max-width: 768px) {
+  .barra-superior  { left: 0; }
+  .sat-content { margin-left: 0; }
+  .grilla-kpi    { grid-template-columns: repeat(2, 1fr); }
+  .grilla-resultado { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 480px) {
+  .grilla-kpi    { grid-template-columns: 1fr 1fr; }
+  .sat-content { padding: 16px; }
+}

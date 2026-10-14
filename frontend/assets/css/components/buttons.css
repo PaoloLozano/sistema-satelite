@@ -1,0 +1,106 @@
+/* Componentes — botones */
+
+/* Botón de tema */
+.boton-tema {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border);
+  background: var(--light);
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+  flex-shrink: 0;
+}
+.boton-tema:hover { border-color: var(--brand); color: var(--brand); }
+
+.boton-principal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--brand);
+  color: #fff;
+  font-weight: 700;
+  font-size: 15px;
+  padding: 13px 28px;
+  border: none;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: background 0.15s, box-shadow 0.15s, transform 0.1s;
+  box-shadow: var(--shadow-brand);
+  font-family: inherit;
+  letter-spacing: -0.01em;
+}
+.boton-principal:hover { background: var(--brand-hover); transform: translateY(-1px); }
+.boton-principal:active { transform: translateY(0); }
+.boton-principal:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+.boton-principal-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: transparent;
+  color: var(--brand);
+  font-weight: 700;
+  font-size: 14px;
+  padding: 10px 22px;
+  border: 2px solid var(--brand);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  font-family: inherit;
+}
+.boton-principal-outline:hover { background: var(--brand-light); }
+
+.boton-oscuro {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--dark);
+  color: #fff;
+  font-weight: 700;
+  font-size: 15px;
+  padding: 13px 28px;
+  border: none;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: background 0.15s;
+  font-family: inherit;
+}
+.boton-oscuro:hover { background: #1A1A1A; }
+
+.boton-borde {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: transparent;
+  color: var(--text-secondary);
+  font-weight: 600;
+  font-size: 13.5px;
+  padding: 8px 16px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+  font-family: inherit;
+}
+.boton-borde:hover { border-color: var(--text); color: var(--text); }
+
+.btn-full { width: 100%; }
+
+.boton-chico { font-size: 13px; padding: 8px 18px; }
+.btn-lg { font-size: 16px; padding: 16px 36px; }
+
+/* Loading spinner in button */
+.btn-spinner {
+  width: 16px; height: 16px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }

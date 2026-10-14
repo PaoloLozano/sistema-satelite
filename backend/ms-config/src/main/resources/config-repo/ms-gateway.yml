@@ -1,0 +1,56 @@
+server:
+  port: 8080
+
+# Limitación de peticiones (RateLimitFilter): fichas por ventana, por usuario o por IP
+rate-limit:
+  enabled: true
+  general:
+    requests: 200
+    window-seconds: 60
+  login:
+    requests: 5
+    window-seconds: 60
+
+spring:
+  cloud:
+    gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowed-origins:
+              - "http://localhost:3500"
+              - "http://localhost:80"
+              - "http://localhost"
+            allowed-methods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowed-headers: "*"
+            allow-credentials: true
+      routes:
+        - id: ms-auth
+          uri: lb://ms-auth
+          predicates:
+            - Path=/api/auth/**,/api/usuarios/**
+        - id: ms-productos
+          uri: lb://ms-productos
+          predicates:
+            - Path=/api/productos/**,/api/proveedores/**
+        - id: ms-lotes
+          uri: lb://ms-lotes
+          predicates:
+            - Path=/api/lotes/**
+        - id: ms-cotizaciones
+          uri: lb://ms-cotizaciones
+          predicates:
+            - Path=/api/cotizaciones/**
+        - id: ms-alertas
+          uri: lb://ms-alertas
+          predicates:
+            - Path=/api/alertas/**
+        - id: ms-reportes
+          uri: lb://ms-reportes
+          predicates:
+            - Path=/api/reportes/**

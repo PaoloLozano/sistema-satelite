@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — Sistema Satelite</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg">
+  <script src="../assets/js/core/theme.js"></script>
+</head>
+
+<body>
+<div class="sat-layout">
+
+  <!-- BARRA LATERAL -->
+  <aside class="barra-lateral" id="sidebar"></aside>
+
+  <!-- TOPBAR -->
+  <header class="barra-superior">
+    <div class="d-flex align-items-center gap-3">
+      <div class="topbar-title">Dashboard</div>
+    </div>
+    <div class="barra-derecha">
+      <button class="boton-tema" id="btn-tema" onclick="toggleTema()" title="Cambiar tema" aria-label="Cambiar tema">
+        <i class="bi bi-moon" id="icono-luna"></i>
+        <i class="bi bi-sun" id="icono-sol" style="display:none"></i>
+      </button>
+      <div class="alerta-barra" id="alerta-barra" role="status" aria-atomic="true">
+        <span class="dot-pulse dot-red"></span>
+        <span id="contador-alertas"></span>
+      </div>
+      <button class="btn btn-danger btn-sm" onclick="window.location='importar.html'">
+        <i class="bi bi-upload me-1"></i>Importar compras
+      </button>
+    </div>
+  </header>
+
+  <!-- CONTENT -->
+  <main class="sat-content">
+    <div class="mb-4">
+      <div class="page-eyebrow">SISTEMA SATÉLITE</div>
+      <h1 class="page-heading">Panel de control</h1>
+      <p class="page-sub">Vista general del inventario, caducidades y compras — <span id="today-date"></span></p>
+    </div>
+
+    <!-- RESUMEN INVENTARIO -->
+    <div class="resumen-inventario">
+      <div class="resumen-semaforo">
+        <div class="resumen-sem-titulo">Estado del inventario</div>
+        <div class="resumen-sem-barra" aria-label="Distribución por estado">
+          <div class="resumen-sem-tramo rojo"    id="tramo-rojo"    style="width:0%"  onclick="window.location='semaforo.html?color=ROJO'"    title="ROJO"></div>
+          <div class="resumen-sem-tramo amarillo" id="tramo-amarillo" style="width:0%" onclick="window.location='semaforo.html?color=AMARILLO'" title="AMARILLO"></div>
+          <div class="resumen-sem-tramo verde"    id="tramo-verde"   style="width:0%"   onclick="window.location='semaforo.html?color=VERDE'"   title="VERDE"></div>
+        </div>
+        <div class="resumen-sem-leyenda">
+          <a class="leyenda-item" href="semaforo.html?color=ROJO">
+            <span class="leyenda-dot" style="background:var(--sem-red)"></span>
+            <span class="leyenda-num rojo" id="sem-red">—</span>
+            <span class="leyenda-txt">críticos</span>
+          </a>
+          <a class="leyenda-item" href="semaforo.html?color=AMARILLO">
+            <span class="leyenda-dot" style="background:var(--sem-yellow)"></span>
+            <span class="leyenda-num amarillo" id="sem-yellow">—</span>
+            <span class="leyenda-txt">en atención</span>
+          </a>
+          <a class="leyenda-item" href="semaforo.html?color=VERDE">
+            <span class="leyenda-dot" style="background:var(--sem-green)"></span>
+            <span class="leyenda-num verde" id="sem-green">—</span>
+            <span class="leyenda-txt">en orden</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="resumen-divisor"></div>
+
+      <div class="resumen-metricas">
+        <div class="metrica-item">
+          <div class="metrica-num" id="kpi-productos">—</div>
+          <div class="metrica-lbl">Productos</div>
+        </div>
+        <div class="metrica-sep"></div>
+        <div class="metrica-item">
+          <div class="metrica-num" id="kpi-prov">—</div>
+          <div class="metrica-lbl">Proveedores</div>
+        </div>
+        <div class="metrica-sep"></div>
+        <div class="metrica-item destacado">
+          <div class="metrica-num" id="kpi-ahorro">—</div>
+          <div class="metrica-lbl">Ahorro del mes</div>
+        </div>
+        <div class="metrica-sep"></div>
+        <div class="metrica-item peligro">
+          <div class="metrica-num" id="kpi-riesgo">—</div>
+          <div class="metrica-lbl">En riesgo</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lotes críticos -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <div class="fw-bold">Lotes críticos — ROJO</div>
+      <div class="d-flex gap-2">
+        <button class="btn btn-outline-secondary btn-sm" onclick="window.location='semaforo.html'">Ver semáforo completo</button>
+        <button class="btn btn-danger btn-sm" onclick="openModal('lote-modal')">+ Nuevo lote</button>
+      </div>
+    </div>
+
+    <div class="table-responsive mb-4">
+      <table class="table table-hover align-middle" id="critical-table" aria-label="Lotes en estado crítico">
+        <thead class="table-light">
+          <tr>
+            <th>Producto</th><th>Proveedor</th><th>Cantidad</th>
+            <th>Vencimiento</th><th>Días rest.</th><th>Estado</th><th>Valor S/</th><th></th>
+          </tr>
+        </thead>
+        <tbody id="critical-tbody"></tbody>
+      </table>
+    </div>
+
+    <!-- Bottom grid -->
+    <div class="grilla-inferior">
+
+      <div class="card">
+        <div class="card-header py-3">
+          <span class="fw-bold">Ranking proveedores</span>
+          <button class="btn btn-outline-secondary btn-sm" onclick="window.location='ranking.html'">Ver todos</button>
+        </div>
+        <div class="card-body">
+          <div class="mb-3">
+            <select class="form-select" id="rank-product" onchange="loadRanking()">
+              <option value="">— Seleccionar producto —</option>
+            </select>
+          </div>
+          <div id="ranking-list">
+            <div class="text-center py-4 text-muted">
+              <p class="small">Selecciona un producto para ver el ranking de proveedores</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header py-3">
+          <span class="fw-bold">Actividad reciente</span>
+        </div>
+        <div class="card-body" id="activity-feed"></div>
+      </div>
+
+    </div>
+
+  </main>
+</div>
+
+<!-- MODAL: Nuevo lote -->
+<div class="fondo-modal" id="lote-modal" role="dialog" aria-modal="true" aria-labelledby="lote-title">
+  <div class="sat-modal">
+    <div class="modal-header-dark">
+      <h3 id="lote-title">Registrar nuevo lote</h3>
+      <button class="modal-close-btn" onclick="closeModal('lote-modal')" aria-label="Cerrar">✕</button>
+    </div>
+    <div class="modal-body">
+      <form id="lote-form" novalidate>
+        <div class="grilla-formulario">
+          <div class="mb-3 grupo-campo full">
+            <label class="form-label fw-semibold">Código EAN-13 del producto *</label>
+            <input type="text" class="form-control" id="lote-ean" placeholder="7501234567890" maxlength="13" pattern="[0-9]{13}" required>
+            <div class="text-danger small mt-1 ean-error-msg" id="ean-error">Debe tener exactamente 13 dígitos.</div>
+          </div>
+          <div class="mb-3 grupo-campo">
+            <label class="form-label fw-semibold">Cantidad (unidades) *</label>
+            <input type="number" class="form-control" id="lote-qty" placeholder="48" min="1" required>
+          </div>
+          <div class="mb-3 grupo-campo">
+            <label class="form-label fw-semibold">Costo unitario S/ *</label>
+            <input type="number" class="form-control" id="lote-cost" placeholder="3.40" min="0" step="0.01" required>
+          </div>
+          <div class="mb-3 grupo-campo full">
+            <label class="form-label fw-semibold">Fecha de vencimiento *</label>
+            <input type="date" class="form-control" id="lote-fecha" required>
+          </div>
+          <div class="mb-3 grupo-campo full">
+            <label class="form-label fw-semibold">Proveedor</label>
+            <select class="form-select" id="lote-prov">
+              <option value="">— Seleccionar proveedor —</option>
+            </select>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline-secondary" onclick="closeModal('lote-modal')">Cancelar</button>
+      <button class="btn btn-danger" onclick="submitLote()">Guardar lote</button>
+    </div>
+  </div>
+</div>
+
+<div id="contenedor-avisos"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/js/core/config.js"></script>
+<script src="../assets/js/core/auth.js"></script>
+<script src="../assets/js/core/ui.js"></script>
+<script src="../assets/js/utils/format.js"></script>
+<script src="../assets/js/components/sidebar.js"></script>
+<script src="../assets/js/pages/dashboard.js"></script>
+</body>
+</html>

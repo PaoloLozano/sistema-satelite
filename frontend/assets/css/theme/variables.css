@@ -1,0 +1,45 @@
+/* Tema — variables de color, medidas y sombras */
+
+:root {
+  --brand:          #E8184A;
+  --brand-hover:    #C41039;
+  --brand-light:    rgba(232,24,74,0.10);
+  --brand-light2:   rgba(232,24,74,0.06);
+
+  --dark:           #000000;
+  --dark-surface:   #111111;
+  --dark-surface2:  #1A1A1A;
+  --dark-border:    rgba(255,255,255,0.08);
+  --dark-muted:     rgba(255,255,255,0.45);
+
+  --light:          #FFFFFF;
+  --light-bg:       #F5F5F5;
+  --input-bg:       #EFEFEF;
+  --border:         #E5E7EB;
+
+  --text:           #0A0A0A;
+  --text-secondary: #4B5563;
+  --text-muted:     #9CA3AF;
+
+  --sem-red:        #DC2626;
+  --sem-red-bg:     #FEF2F2;
+  --sem-red-bdr:    #FECACA;
+  --sem-yellow:     #D97706;
+  --sem-yellow-bg:  #FFFBEB;
+  --sem-yellow-bdr: #FDE68A;
+  --sem-green:      #16A34A;
+  --sem-green-bg:   #F0FDF4;
+  --sem-green-bdr:  #BBF7D0;
+
+  --sidebar-w:      240px;
+  --topbar-h:       60px;
+
+  --radius-pill:    100px;
+  --radius-lg:      16px;
+  --radius-md:      12px;
+  --radius-sm:      8px;
+
+  --shadow-sm:      0 1px 4px rgba(0,0,0,0.08);
+  --shadow-md:      0 4px 20px rgba(0,0,0,0.10);
+  --shadow-brand:   0 4px 20px rgba(232,24,74,0.30);
+}

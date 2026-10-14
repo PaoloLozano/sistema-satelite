@@ -1,0 +1,26 @@
+﻿.barra-controles {
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+  margin-bottom:20px;padding:16px;background:var(--light);
+  border-radius:12px;border:1.5px solid var(--border)
+}
+.control-group { display:flex;flex-direction:column;gap:4px }
+.control-label { font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-muted) }
+.tarjeta-ranking { background:var(--light);border:1.5px solid var(--border);border-radius:14px;padding:0;overflow:hidden;margin-bottom:16px }
+.tarjeta-ranking-header { background:var(--dark);color:#fff;padding:14px 18px;display:flex;justify-content:space-between;align-items:center }
+.tarjeta-ranking-title { font-size:14px;font-weight:800 }
+.fila-ranking-item {
+  display:grid;grid-template-columns:36px 1fr 90px 90px 80px;gap:12px;
+  align-items:center;padding:12px 18px;border-bottom:1px solid var(--border);font-size:13.5px
+}
+.fila-ranking-item:last-child { border-bottom:none }
+.numero-ranking { width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0 }
+.ranking-primero { background:#F59E0B;color:#fff }
+.ranking-segundo { background:#9CA3AF;color:#fff }
+.ranking-tercero { background:#CD7F32;color:#fff }
+.ranking-otro { background:var(--input-bg);color:var(--text-muted) }
+.envoltura-barra-precio { height:6px;background:var(--input-bg);border-radius:var(--radius-pill);margin-top:4px;overflow:hidden }
+.barra-precio { height:100%;border-radius:var(--radius-pill);background:var(--brand);transition:width .5s ease }
+.insignia-ahorro { padding:3px 9px;border-radius:var(--radius-pill);font-size:11.5px;font-weight:700 }
+.saving-pos  { background:var(--sem-green-bg);color:var(--sem-green) }
+.saving-neg  { background:var(--sem-red-bg);color:var(--sem-red) }
+.saving-zero { background:var(--input-bg);color:var(--text-muted) }

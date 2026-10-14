@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alertas — Sistema Satélite</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg">
+  <script src="../assets/js/core/theme.js?v=2"></script>
+</head>
+<body>
+<div class="sat-layout">
+<aside class="barra-lateral" id="sidebar"></aside>
+
+<header class="barra-superior">
+  <div class="d-flex align-items-center gap-3">
+    <div class="topbar-title">Alertas Telegram</div>
+  </div>
+  <div class="barra-derecha">
+    <button class="boton-tema" id="btn-tema" onclick="toggleTema()" title="Cambiar tema" aria-label="Cambiar tema">
+      <i class="bi bi-moon" id="icono-luna"></i>
+      <i class="bi bi-sun" id="icono-sol" style="display:none"></i>
+    </button>
+  </div>
+</header>
+
+<main class="sat-content">
+  <div style="display:grid;grid-template-columns:1fr 310px;gap:24px;align-items:start">
+    <div>
+      <div class="mb-3">
+        <div class="page-eyebrow">NOTIFICACIONES</div>
+        <h1 class="page-heading">Historial de alertas</h1>
+        <p class="page-sub">Todas las alertas enviadas al bot de Telegram · <span id="today-date"></span></p>
+      </div>
+
+      <div class="d-flex gap-2 mb-3 flex-wrap">
+        <button class="chip-filtro active" id="fc-TODAS" data-f="TODAS"   onclick="setFilter('TODAS')">Todas</button>
+        <button class="chip-filtro" id="fc-ROJO" data-f="ROJO"     onclick="setFilter('ROJO')">Críticas</button>
+        <button class="chip-filtro" id="fc-AMARILLO" data-f="AMARILLO" onclick="setFilter('AMARILLO')">Aviso</button>
+        <button class="chip-filtro" id="fc-INFO" data-f="INFO"     onclick="setFilter('INFO')">Info</button>
+      </div>
+
+      <div class="card">
+        <div class="card-body p-0">
+          <div class="d-flex align-items-center justify-content-between gap-2 px-3 pt-3 flex-wrap">
+            <label class="d-flex align-items-center gap-2 small text-muted mb-0" style="cursor:pointer">
+              <input type="checkbox" class="form-check-input m-0" id="sel-todas" onchange="seleccionarTodas(this.checked)">
+              Seleccionar todas
+            </label>
+            <button class="btn btn-outline-secondary btn-sm" id="btn-enviar-sel" onclick="enviarSeleccionadas()" disabled>Enviar seleccionadas a Telegram</button>
+          </div>
+          <div id="lista-alertas" class="p-3 pb-0"></div>
+          <div class="px-3 py-2 border-top small text-muted" id="contador-alertas"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Config panel -->
+    <div>
+      <div class="tarjeta-telegram mb-3">
+        <div class="titulo-telegram">Bot Telegram</div>
+        <div class="subtitulo-telegram" id="tg-bot">Comprobando…</div>
+        <div class="d-flex align-items-center gap-2 mb-3 flex-wrap">
+          <div class="estado-telegram" id="estado-telegram">● …</div>
+          <div class="estado-telegram" id="tg-chat"></div>
+        </div>
+        <p class="small mb-0" style="color:rgba(255,255,255,.55);line-height:1.6" id="tg-ayuda">
+          El token y el Chat ID se definen en el servidor (variables <code>TELEGRAM_TOKEN</code> y
+          <code>TELEGRAM_CHAT_ID</code>), no en esta pantalla.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <div class="card-label mb-2">Resumen automático</div>
+          <p class="small text-muted mb-3" style="line-height:1.6">
+            Todos los días a las <strong>07:00</strong> se envía a Telegram la lista de productos en
+            <span class="tipo-alerta tipo-ROJO">ROJO</span> y <span class="tipo-alerta tipo-AMARILLO">AMARILLO</span>.
+            Si no hay ninguno, no se envía nada.
+          </p>
+          <button class="btn btn-outline-secondary btn-sm w-100" id="btn-resumen" onclick="enviarResumenAhora()">Enviar resumen ahora</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+</div>
+
+<div id="contenedor-avisos"></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/js/core/config.js"></script>
+<script src="../assets/js/core/auth.js"></script>
+<script src="../assets/js/core/ui.js"></script>
+<script src="../assets/js/utils/format.js"></script>
+<script src="../assets/js/components/sidebar.js"></script>
+<script src="../assets/js/pages/alertas.js"></script>
+</body>
+</html>

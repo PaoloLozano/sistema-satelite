@@ -1,0 +1,41 @@
+﻿.barra-filtros { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
+.chip-filtro {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 18px; border-radius: var(--radius-pill);
+  font-size: 13px; font-weight: 700; border: 2px solid var(--border);
+  background: var(--light); color: var(--text-secondary); cursor: pointer; transition: all .15s;
+}
+.chip-filtro:hover { border-color: var(--text); }
+.chip-filtro.active-red    { background: var(--sem-red-bg);    border-color: var(--sem-red);    color: var(--sem-red); }
+.chip-filtro.active-yellow { background: var(--sem-yellow-bg); border-color: var(--sem-yellow); color: var(--sem-yellow); }
+.chip-filtro.active-green  { background: var(--sem-green-bg);  border-color: var(--sem-green);  color: var(--sem-green); }
+.chip-filtro.active-all    { background: var(--dark); border-color: var(--dark); color: #fff; }
+
+.mini-indicador { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 20px; }
+.tarjeta-mini {
+  padding: 16px; border-radius: var(--radius-md); border: 1.5px solid;
+  text-align: center; cursor: pointer; transition: transform .15s;
+}
+.tarjeta-mini:hover { transform: translateY(-2px); }
+.tarjeta-mini.red    { background: var(--sem-red-bg);    border-color: var(--sem-red-bdr); }
+.tarjeta-mini.yellow { background: var(--sem-yellow-bg); border-color: var(--sem-yellow-bdr); }
+.tarjeta-mini.green  { background: var(--sem-green-bg);  border-color: var(--sem-green-bdr); }
+.numero-mini { font-size: 36px; font-weight: 900; letter-spacing: -0.05em; line-height: 1; }
+.tarjeta-mini.red    .numero-mini { color: var(--sem-red); }
+.tarjeta-mini.yellow .numero-mini { color: var(--sem-yellow); }
+.tarjeta-mini.green  .numero-mini { color: var(--sem-green); }
+.etiqueta-mini { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; margin-top: 6px; }
+.tarjeta-mini.red    .etiqueta-mini { color: var(--sem-red); }
+.tarjeta-mini.yellow .etiqueta-mini { color: var(--sem-yellow); }
+.tarjeta-mini.green  .etiqueta-mini { color: var(--sem-green); }
+.mini-indicador-sub { font-size: 11.5px; color: var(--text-muted); margin-top: 4px; }
+
+.barra-busqueda { position: relative; flex: 1; min-width: 220px; }
+.barra-busqueda svg { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--text-muted); pointer-events: none; }
+.barra-busqueda input {
+  width: 100%; padding: 10px 16px 10px 44px;
+  border: 1.5px solid var(--border); border-radius: var(--radius-pill);
+  font-size: 13.5px; font-family: inherit; background: var(--light);
+  outline: none; transition: border-color .15s;
+}
+.barra-busqueda input:focus { border-color: var(--brand); }

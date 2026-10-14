@@ -1,0 +1,43 @@
+# Configuración compartida para todos los microservicios
+
+jwt:
+  # Clave de desarrollo; en producción se reemplaza con la variable JWT_SECRET
+  secret: ${JWT_SECRET:U2F0ZWxpdGVTZWNyZXRLZXlQcm95ZWN0b1NhdGVsaXRlMjAyNlNlY3VyZUtleUZvckpXVA==}
+  expiration: 86400000  # 24 horas en ms
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${EUREKA_HOST:localhost}:8761/eureka/
+    fetch-registry: true
+    register-with-eureka: true
+  instance:
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 10
+    lease-expiration-duration-in-seconds: 30
+
+spring:
+  cloud:
+    openfeign:
+      circuitbreaker:
+        enabled: true
+  rabbitmq:
+    host: ${RABBIT_HOST:localhost}
+    port: 5672
+    username: ${RABBIT_USER:guest}
+    password: ${RABBIT_PASS:guest}
+    virtual-host: /
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,refresh
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    com.satelite: DEBUG
+    org.springframework.cloud: INFO

@@ -1,0 +1,28 @@
+﻿.barra-filtros { display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:18px }
+.contenedor-busqueda { position:relative;flex:1;min-width:200px }
+.contenedor-busqueda svg { position:absolute;left:15px;top:50%;transform:translateY(-50%);color:var(--text-muted);pointer-events:none }
+.contenedor-busqueda input {
+  width:100%;padding:10px 16px 10px 42px;border:1.5px solid var(--border);
+  border-radius:var(--radius-pill);font-size:13.5px;font-family:inherit;
+  outline:none;transition:border-color .15s;background:var(--light)
+}
+.contenedor-busqueda input:focus { border-color:var(--brand) }
+.insignia-admin    { background:#FEE2E2;color:#991B1B;padding:3px 10px;border-radius:var(--radius-pill);font-size:12px;font-weight:700 }
+.insignia-analista { background:#EDE9FE;color:#5B21B6;padding:3px 10px;border-radius:var(--radius-pill);font-size:12px;font-weight:700 }
+.insignia-operador { background:#E0F2FE;color:#0369A1;padding:3px 10px;border-radius:var(--radius-pill);font-size:12px;font-weight:700 }
+.avatar-usuario {
+  width:40px;height:40px;border-radius:50%;background:var(--dark);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;flex-shrink:0
+}
+.grilla-formulario { display:grid;grid-template-columns:1fr 1fr;gap:14px }
+.grilla-formulario .full { grid-column:1/-1 }
+.aviso-acceso {
+  background:var(--sem-red-bg);border:1.5px solid var(--sem-red);border-radius:12px;
+  padding:12px 16px;display:flex;align-items:center;gap:10px;
+  margin-bottom:20px;font-size:13.5px;color:var(--sem-red);font-weight:600
+}
+.tabla-permisos td,
+.tabla-permisos th { padding:8px 12px;font-size:12.5px }
+.tabla-permisos th  { background:var(--input-bg);font-weight:700;font-size:12px }
+.permiso-si { color:var(--sem-green);font-weight:700;font-size:16px }
+.permiso-no { color:#D1D5DB;font-size:16px }

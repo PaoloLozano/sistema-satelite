@@ -1,0 +1,155 @@
+.grilla-inferior { display: grid; grid-template-columns: 1.4fr 1fr; gap: 16px; }
+@media (max-width: 1200px) { .grilla-inferior { grid-template-columns: 1fr; } }
+
+/* ============================================================
+   RESUMEN DE INVENTARIO — layout editorial sin tarjetas
+   ============================================================ */
+.resumen-inventario {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  background: var(--light);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  margin-bottom: 28px;
+}
+
+/* --- Semáforo: lado izquierdo --- */
+.resumen-semaforo {
+  padding: 22px 28px;
+  min-width: 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 14px;
+}
+.resumen-sem-titulo {
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: var(--text-muted);
+}
+
+/* Barra de progreso proporcional */
+.resumen-sem-barra {
+  display: flex;
+  height: 10px;
+  border-radius: 100px;
+  overflow: hidden;
+  gap: 2px;
+}
+.resumen-sem-tramo {
+  height: 100%;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: opacity 0.15s, transform 0.15s;
+  flex-shrink: 0;
+}
+.resumen-sem-tramo:hover { opacity: 0.8; }
+.resumen-sem-tramo.rojo    { background: var(--sem-red); }
+.resumen-sem-tramo.amarillo { background: var(--sem-yellow); }
+.resumen-sem-tramo.verde   { background: var(--sem-green); }
+
+/* Leyenda debajo de la barra */
+.resumen-sem-leyenda {
+  display: flex;
+  gap: 20px;
+}
+.leyenda-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  cursor: pointer;
+}
+.leyenda-item:hover .leyenda-num { text-decoration: underline; }
+.leyenda-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.leyenda-num {
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+.leyenda-num.rojo    { color: var(--sem-red); }
+.leyenda-num.amarillo { color: var(--sem-yellow); }
+.leyenda-num.verde   { color: var(--sem-green); }
+.leyenda-txt {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+/* Separador vertical */
+.resumen-divisor {
+  width: 1px;
+  background: var(--border);
+  flex-shrink: 0;
+  margin: 16px 0;
+}
+
+/* --- Métricas: lado derecho --- */
+.resumen-metricas {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+}
+.metrica-item {
+  flex: 1;
+  padding: 22px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.metrica-num {
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: var(--text);
+}
+.metrica-lbl {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: .05em;
+}
+.metrica-item.destacado .metrica-num { color: var(--brand); }
+.metrica-item.peligro   .metrica-num { color: var(--sem-red); }
+
+/* Separador entre métricas */
+.metrica-sep {
+  width: 1px;
+  height: 40px;
+  background: var(--border);
+  flex-shrink: 0;
+}
+
+/* --- Dark mode --- */
+[data-tema="oscuro"] .resumen-inventario { background: #1A1A1A; border-color: #2E2E2E; }
+[data-tema="oscuro"] .resumen-divisor    { background: #2E2E2E; }
+[data-tema="oscuro"] .metrica-sep        { background: #2E2E2E; }
+
+/* --- Responsive --- */
+@media (max-width: 900px) {
+  .resumen-inventario  { flex-direction: column; }
+  .resumen-divisor     { width: auto; height: 1px; margin: 0 16px; }
+  .resumen-semaforo    { min-width: unset; }
+  .resumen-metricas    { flex-wrap: wrap; padding: 4px 0; }
+  .metrica-item        { min-width: 40%; padding: 16px; }
+  .metrica-sep         { display: none; }
+}
+@media (max-width: 600px) {
+  .resumen-metricas    { display: grid; grid-template-columns: 1fr 1fr; }
+  .metrica-sep         { display: none; }
+  .leyenda-num         { font-size: 18px; }
+}

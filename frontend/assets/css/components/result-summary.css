@@ -1,0 +1,27 @@
+/* Componentes — resumen de resultados de importación */
+
+.grilla-resultado {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.result-item {
+  border-radius: var(--radius-md);
+  padding: 14px;
+  text-align: center;
+}
+.result-item.ins { background: var(--sem-green-bg); }
+.result-item.upd { background: #EFF6FF; }
+.result-item.rej { background: var(--sem-red-bg); }
+.result-num {
+  font-size: 26px;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.result-item.ins .result-num { color: var(--sem-green); }
+.result-item.upd .result-num { color: #2563EB; }
+.result-item.rej .result-num { color: var(--sem-red); }
+.result-lbl { font-size: 11.5px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }

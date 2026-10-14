@@ -1,0 +1,25 @@
+/* Utilidades — clases de apoyo */
+
+.text-brand  { color: var(--brand); }
+.text-muted  { color: var(--text-muted); }
+.texto-rojo    { color: var(--sem-red); }
+.texto-amarillo { color: var(--sem-yellow); }
+.texto-verde  { color: var(--sem-green); }
+.fw-900      { font-weight: 900; }
+.fw-800      { font-weight: 800; }
+.fw-700      { font-weight: 700; }
+.mono        { font-variant-numeric: tabular-nums; }
+
+.dot-pulse {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+.dot-red    { background: var(--sem-red); }
+.dot-yellow { background: var(--sem-yellow); }
+.dot-green  { background: var(--sem-green); }
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}

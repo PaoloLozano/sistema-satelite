@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: ms-reportes
+  config:
+    import: optional:configserver:http://${CONFIG_HOST:localhost}:8888
+
+server:
+  port: 8086
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${EUREKA_HOST:localhost}:8761/eureka/

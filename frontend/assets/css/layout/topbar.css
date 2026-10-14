@@ -1,0 +1,41 @@
+/* Layout — barra superior */
+
+.barra-superior {
+  position: fixed;
+  top: 0;
+  left: var(--sidebar-w);
+  right: 0;
+  height: var(--topbar-h);
+  background: var(--light);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  z-index: 90;
+}
+.topbar-title {
+  font-size: 17px;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  color: var(--text);
+}
+.barra-derecha { display: flex; align-items: center; gap: 12px; }
+
+.alerta-barra {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--sem-red-bg);
+  color: var(--sem-red);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--sem-red-bdr);
+  animation: pulse-red 2s ease-in-out infinite;
+}
+@keyframes pulse-red {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(220,38,38,0); }
+  50%       { box-shadow: 0 0 0 4px rgba(220,38,38,0.15); }
+}

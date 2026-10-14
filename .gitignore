@@ -1,0 +1,15 @@
+# Compilación de Maven
+target/
+
+# Secretos locales (token de Telegram)
+secretos.local.ps1
+
+# Editores y herramientas
+.idea/
+*.iml
+.vscode/
+
+# Logs y archivos del sistema
+*.log
+Thumbs.db
+.DS_Store

@@ -1,0 +1,32 @@
+﻿.zona-carga {
+  border:2.5px dashed var(--border);border-radius:16px;padding:56px 32px;
+  text-align:center;cursor:pointer;transition:border-color .2s,background .2s;background:var(--light)
+}
+.zona-carga:hover,.zona-carga.arrastrando { border-color:var(--brand);background:var(--brand-light) }
+.drop-icon {
+  width:60px;height:60px;background:var(--input-bg);border-radius:16px;
+  display:flex;align-items:center;justify-content:center;margin:0 auto 16px
+}
+.drop-title { font-size:16px;font-weight:700;margin-bottom:6px }
+.drop-sub   { font-size:13px;color:var(--text-muted) }
+.step-row { display:flex;align-items:flex-start;gap:14px;padding:14px 0;border-bottom:1px solid var(--border) }
+.step-row:last-child { border-bottom:none }
+.numero-paso {
+  width:30px;height:30px;border-radius:50%;background:var(--dark);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:800;flex-shrink:0
+}
+.numero-paso.done   { background:var(--sem-green) }
+.numero-paso.active { background:var(--brand) }
+.envoltura-progreso { background:var(--input-bg);border-radius:var(--radius-pill);height:8px;overflow:hidden;margin:10px 0 }
+.progress-bar-fill { height:100%;background:var(--brand);border-radius:var(--radius-pill);transition:width .4s ease }
+.grilla-resultado { display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px }
+.result-card { background:var(--light);border:1.5px solid var(--border);border-radius:12px;padding:16px;text-align:center }
+.result-num { font-size:28px;font-weight:900;letter-spacing:-0.04em }
+.result-lbl { font-size:12.5px;color:var(--text-muted);margin-top:4px }
+.tabla-prevista { width:100%;border-collapse:collapse;font-size:13px }
+.tabla-prevista th { background:var(--input-bg);padding:8px 12px;text-align:left;font-weight:700;font-size:12px }
+.tabla-prevista td { padding:8px 12px;border-top:1px solid var(--border) }
+.tabla-prevista tr:hover td { background:var(--input-bg) }
+.etiqueta-ok   { background:var(--sem-green-bg);color:var(--sem-green);padding:2px 8px;border-radius:var(--radius-pill);font-size:11px;font-weight:700 }
+.etiqueta-actualizar { background:var(--sem-yellow-bg);color:var(--sem-yellow);padding:2px 8px;border-radius:var(--radius-pill);font-size:11px;font-weight:700 }
+.etiqueta-rechazado  { background:var(--sem-red-bg);color:var(--sem-red);padding:2px 8px;border-radius:var(--radius-pill);font-size:11px;font-weight:700 }

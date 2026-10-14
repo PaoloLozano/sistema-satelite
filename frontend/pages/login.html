@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ingresar — Sistema Satélite</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg">
+  <script src="../assets/js/core/theme.js?v=2"></script>
+</head>
+
+<body>
+  <div class="panel-hero">
+    <div class="fondo-cuadricula"></div>
+
+    <div class="contenedor-marca">
+      <div class="contenedor-marca-icon">
+        <img src="../assets/images/logo.svg" alt="" width="22" height="22">
+      </div>
+      <span class="contenedor-marca-name">Satélite</span>
+    </div>
+
+    <div class="hero-content">
+      <div class="hero-eyebrow">Sistema de Control</div>
+
+      <h1 class="titulo-hero">
+        Controla<br>
+        tu <span class="accent">stock</span><br>
+        sin mermas.
+      </h1>
+
+      <p class="hero-desc">
+        Semáforo de caducidad por lote, historial de precios
+        por proveedor y alertas automáticas por Telegram —
+        todo desde el navegador.
+      </p>
+
+      <div class="chip-heros">
+        <span class="chip-hero">Semáforo de caducidad</span>
+        <span class="chip-hero">Ranking proveedores</span>
+        <span class="chip-hero">Importación POS</span>
+        <span class="chip-hero">Alertas Telegram</span>
+      </div>
+
+      <div class="estadistica-items">
+        <div>
+          <div class="stat-num">~1<span class="unit">k</span></div>
+          <div class="stat-label">Productos en catálogo</div>
+        </div>
+        <div>
+          <div class="stat-num">3<span class="unit">×</span></div>
+          <div class="stat-label">Roles de acceso</div>
+        </div>
+        <div>
+          <div class="stat-num">6<span class="unit"> svc</span></div>
+          <div class="stat-label">Microservicios REST</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel-formulario">
+
+    <div class="etiqueta-bienvenida" id="etiqueta-acceso" style="display:none">
+      <i class="bi bi-check-circle"></i>
+      Acceso autorizado
+    </div>
+
+    <h2 class="form-heading">Ingresar al sistema</h2>
+    <p class="form-subheading">Minimarket / Bodega — Sistema Satélite</p>
+
+    <div id="error-global" class="alert alert-danger align-items-center gap-2" style="display:none" role="alert">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+      <span id="mensaje-error"></span>
+    </div>
+
+    <form id="login-form" novalidate>
+
+      <div class="mb-3">
+        <div class="d-flex justify-content-between align-items-center">
+          <label class="form-label fw-semibold" for="username">Correo electrónico</label>
+        </div>
+        <input
+          id="username"
+          type="email"
+          class="form-control"
+          placeholder="usuario@tienda.pe"
+          autocomplete="email"
+          required
+        >
+        <div class="text-danger small mt-1" id="email-error" style="display:none">Ingresa un correo válido.</div>
+      </div>
+
+      <div class="mb-3">
+        <div class="d-flex justify-content-between align-items-center">
+          <label class="form-label fw-semibold" for="password">Contraseña</label>
+          <a href="#" tabindex="-1" class="text-decoration-none small fw-semibold">¿Olvidaste tu contraseña?</a>
+        </div>
+        <div class="input-wrapper">
+          <input
+            id="password"
+            type="password"
+            class="form-control"
+            placeholder="Tu contraseña"
+            autocomplete="current-password"
+            required
+          >
+          <button type="button" class="input-toggle" id="toggle-pw" aria-label="Mostrar contraseña">
+            <svg id="eye-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+          </button>
+        </div>
+        <div class="text-danger small mt-1" id="pw-error" style="display:none">Ingresa tu contraseña.</div>
+      </div>
+
+      <button type="submit" class="btn btn-danger w-100 btn-lg mt-5" id="submit-btn">
+        <span id="btn-text">Ingresar</span>
+        <span class="btn-spinner ms-2" id="btn-spinner" style="display:none"></span>
+      </button>
+
+    </form>
+
+    <div class="form-footer">
+      <br>
+      Solo acceso con credenciales autorizadas.
+    </div>
+  </div>
+
+  <div id="contenedor-avisos"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/js/core/config.js"></script>
+<script src="../assets/js/core/ui.js"></script>
+<script src="../assets/js/pages/login.js"></script>
+</body>
+</html>

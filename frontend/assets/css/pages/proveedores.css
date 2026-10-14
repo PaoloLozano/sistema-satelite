@@ -1,0 +1,27 @@
+﻿.grilla-proveedores { display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin-top:4px }
+.tarjeta-proveedor { background:var(--light);border:1.5px solid var(--border);border-radius:14px;padding:20px;transition:border-color .15s }
+.tarjeta-proveedor:hover { border-color:var(--brand) }
+.avatar-proveedor {
+  width:48px;height:48px;background:var(--dark);border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;font-size:18px;font-weight:800;margin-bottom:14px
+}
+.nombre-proveedor { font-size:15px;font-weight:800;margin-bottom:3px }
+.ruc-proveedor  { font-size:12.5px;color:var(--text-muted);margin-bottom:12px }
+.meta-proveedor { display:flex;flex-direction:column;gap:5px;margin-bottom:14px }
+.meta-proveedor-row { display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--text-secondary) }
+.meta-proveedor-row svg { flex-shrink:0 }
+.acciones-proveedor { display:flex;gap:8px }
+.estadistica-proveedor { background:var(--input-bg);border-radius:8px;padding:8px 12px;text-align:center;flex:1 }
+.estadistica-proveedor-num { font-size:16px;font-weight:800 }
+.estadistica-proveedor-lbl { font-size:11px;color:var(--text-muted) }
+.contenedor-busqueda { position:relative;flex:1;min-width:200px }
+.contenedor-busqueda svg { position:absolute;left:15px;top:50%;transform:translateY(-50%);color:var(--text-muted);pointer-events:none }
+.contenedor-busqueda input {
+  width:100%;padding:10px 16px 10px 42px;border:1.5px solid var(--border);
+  border-radius:var(--radius-pill);font-size:13.5px;font-family:inherit;
+  outline:none;transition:border-color .15s;background:var(--light)
+}
+.contenedor-busqueda input:focus { border-color:var(--brand) }
+.grilla-formulario { display:grid;grid-template-columns:1fr 1fr;gap:14px }
+.grilla-formulario .full { grid-column:1/-1 }

@@ -1,0 +1,44 @@
+/* Tema — modo oscuro */
+
+[data-tema="oscuro"] {
+  --light-bg:       #0F0F0F;
+  --light:          #1A1A1A;
+  --input-bg:       #252525;
+  --border:         #2E2E2E;
+  --text:           #F0F0F0;
+  --text-secondary: #A1A1AA;
+  --text-muted:     #71717A;
+  --shadow-sm:      0 1px 4px rgba(0,0,0,0.5);
+  --shadow-md:      0 4px 20px rgba(0,0,0,0.6);
+  --sem-red-bg:     rgba(220,38,38,0.15);
+  --sem-red-bdr:    rgba(220,38,38,0.30);
+  --sem-yellow-bg:  rgba(217,119,6,0.15);
+  --sem-yellow-bdr: rgba(217,119,6,0.30);
+  --sem-green-bg:   rgba(22,163,74,0.15);
+  --sem-green-bdr:  rgba(22,163,74,0.30);
+}
+
+[data-tema="oscuro"] .tabla-datos td                { border-bottom-color: #2A2A2A; }
+[data-tema="oscuro"] .tabla-datos tbody tr:hover td { background: #222; }
+[data-tema="oscuro"] .tabla-datos thead tr          { background: #222; }
+[data-tema="oscuro"] .item-actividad                { border-bottom-color: #2A2A2A; }
+[data-tema="oscuro"] .fila-ranking                  { border-bottom-color: #2A2A2A; }
+[data-tema="oscuro"] .fila-ranking-item             { border-bottom-color: #2A2A2A; }
+[data-tema="oscuro"] .fila-historial                { border-bottom-color: #2A2A2A; }
+[data-tema="oscuro"] .fila-alerta                   { border-bottom-color: #2A2A2A; }
+[data-tema="oscuro"] .fila-tarea                    { border-bottom-color: rgba(255,255,255,0.07); }
+[data-tema="oscuro"] .modal-footer                  { background: #111; }
+[data-tema="oscuro"] .barra-semaforo                { background: #1A1A1A; border-color: #2E2E2E; }
+[data-tema="oscuro"] .segmento-semaforo             { border-color: #2E2E2E; }
+[data-tema="oscuro"] .tarjeta-producto              { border-color: #2E2E2E; background: #1A1A1A; }
+[data-tema="oscuro"] .tarjeta-proveedor             { border-color: #2E2E2E; background: #1A1A1A; }
+[data-tema="oscuro"] .tarjeta-kpi                   { border-color: #2E2E2E; }
+[data-tema="oscuro"] .barra-filtros                 { background: #1A1A1A; border-color: #2E2E2E; }
+[data-tema="oscuro"] .chip-filtro,
+[data-tema="oscuro"] .chip-estado,
+[data-tema="oscuro"] .chip-categoria,
+[data-tema="oscuro"] .chip-mes                      { background: #1A1A1A; border-color: #2E2E2E; color: #A1A1AA; }
+[data-tema="oscuro"] .chip-filtro.activo,
+[data-tema="oscuro"] .chip-estado.activo,
+[data-tema="oscuro"] .chip-categoria.activo,
+[data-tema="oscuro"] .chip-mes.activo               { background: #F0F0F0; border-color: #F0F0F0; color: #0F0F0F; }
