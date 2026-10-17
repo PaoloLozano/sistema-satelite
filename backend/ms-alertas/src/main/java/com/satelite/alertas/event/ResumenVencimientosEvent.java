@@ -1,6 +1,5 @@
 package com.satelite.alertas.event;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,7 +11,6 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class ResumenVencimientosEvent implements Serializable {
 
     private int productosRojo;
@@ -20,4 +18,12 @@ public class ResumenVencimientosEvent implements Serializable {
     private String resumen;
     private String detalle;
     private List<LoteVencimientoEvent> lotes;
+
+    public ResumenVencimientosEvent(int productosRojo, int productosAmarillo, String resumen, String detalle, List<LoteVencimientoEvent> lotes) {
+        this.productosRojo = productosRojo;
+        this.productosAmarillo = productosAmarillo;
+        this.resumen = resumen;
+        this.detalle = detalle;
+        this.lotes = lotes;
+    }
 }

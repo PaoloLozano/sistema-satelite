@@ -7,17 +7,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/api/productos")
-@RequiredArgsConstructor
 public class ProductoController {
 
     private final ProductoService productoService;
+
+    public ProductoController(ProductoService productoService) {
+        this.productoService = productoService;
+    }
 
     @GetMapping
     public ResponseEntity<List<Producto>> findAll() {

@@ -6,7 +6,6 @@ import com.satelite.reportes.client.ProductoClient;
 import com.satelite.reportes.dto.CotizacionDTO;
 import org.springframework.stereotype.Service;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
@@ -15,12 +14,17 @@ import java.util.*;
 
 @Service
 @Slf4j
-@RequiredArgsConstructor
 public class ReporteService {
 
     private final LoteClient loteClient;
     private final CotizacionClient cotizacionClient;
     private final ProductoClient productoClient;
+
+    public ReporteService(LoteClient loteClient, CotizacionClient cotizacionClient, ProductoClient productoClient) {
+        this.loteClient = loteClient;
+        this.cotizacionClient = cotizacionClient;
+        this.productoClient = productoClient;
+    }
 
     // Ahorro = precio de catálogo (ms-productos, guardado al crear la cotización) − precio cotizado confirmado
     public Map<String, Object> getAhorro(String mes) {

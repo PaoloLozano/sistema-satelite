@@ -1,7 +1,6 @@
 package com.satelite.auth.dto;
 
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,7 +8,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class LoginRequest {
 
     @NotBlank(message = "Username es requerido")
@@ -17,4 +15,9 @@ public class LoginRequest {
 
     @NotBlank(message = "Password es requerido")
     private String password;
+
+    public LoginRequest(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 }

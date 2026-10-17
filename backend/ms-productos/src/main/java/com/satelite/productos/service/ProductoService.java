@@ -6,15 +6,17 @@ import com.satelite.productos.repository.ProductoRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class ProductoService {
 
     private final ProductoRepository productoRepository;
+
+    public ProductoService(ProductoRepository productoRepository) {
+        this.productoRepository = productoRepository;
+    }
 
     public List<Producto> findAll() {
         return productoRepository.findAll();

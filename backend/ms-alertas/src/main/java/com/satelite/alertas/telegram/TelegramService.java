@@ -1,7 +1,6 @@
 package com.satelite.alertas.telegram;
 
 import com.satelite.alertas.entity.Alerta;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
@@ -17,13 +16,16 @@ import java.util.concurrent.Executors;
 
 @Service
 @Slf4j
-@RequiredArgsConstructor
 public class TelegramService {
 
     // Telegram recomienda como máximo ~1 mensaje por segundo hacia un mismo chat
     private static final long PAUSA_ENTRE_MENSAJES_MS = 1100;
 
     private final TelegramProperties props;
+
+    public TelegramService(TelegramProperties props) {
+        this.props = props;
+    }
     private final ExecutorService cola = Executors.newSingleThreadExecutor(r -> {
         Thread t = new Thread(r, "telegram-envio");
         t.setDaemon(true);

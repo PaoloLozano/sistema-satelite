@@ -6,7 +6,6 @@ import com.satelite.lotes.entity.Lote;
 import com.satelite.lotes.event.LoteVencimientoEvent;
 import com.satelite.lotes.event.ResumenVencimientosEvent;
 import com.satelite.lotes.repository.LoteRepository;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
@@ -21,7 +20,6 @@ import java.util.Map;
 
 @Service
 @Slf4j
-@RequiredArgsConstructor
 public class ResumenService {
 
     private static final int MAX_POR_ESTADO = 25;
@@ -29,6 +27,11 @@ public class ResumenService {
 
     private final LoteRepository loteRepository;
     private final RabbitTemplate rabbitTemplate;
+
+    public ResumenService(LoteRepository loteRepository, RabbitTemplate rabbitTemplate) {
+        this.loteRepository = loteRepository;
+        this.rabbitTemplate = rabbitTemplate;
+    }
 
     public record Resultado(int rojo, int amarillo, boolean enviado) {}
 

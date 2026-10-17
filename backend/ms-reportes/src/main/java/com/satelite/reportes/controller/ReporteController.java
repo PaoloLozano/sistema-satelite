@@ -1,7 +1,6 @@
 package com.satelite.reportes.controller;
 
 import com.satelite.reportes.service.ReporteService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,10 +12,13 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/reportes")
-@RequiredArgsConstructor
 public class ReporteController {
 
     private final ReporteService reporteService;
+
+    public ReporteController(ReporteService reporteService) {
+        this.reporteService = reporteService;
+    }
 
     // mes en formato YYYY-MM (por defecto el mes actual)
     @GetMapping("/ahorro")

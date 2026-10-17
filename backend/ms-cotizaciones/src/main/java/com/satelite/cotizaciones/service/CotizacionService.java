@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.satelite.cotizaciones.dto.RankingItemDTO;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
@@ -28,12 +27,17 @@ import java.util.Map;
 
 @Service
 @Slf4j
-@RequiredArgsConstructor
 public class CotizacionService {
 
     private final CotizacionRepository cotizacionRepository;
     private final ProductoClient productoClient;
     private final RabbitTemplate rabbitTemplate;
+
+    public CotizacionService(CotizacionRepository cotizacionRepository, ProductoClient productoClient, RabbitTemplate rabbitTemplate) {
+        this.cotizacionRepository = cotizacionRepository;
+        this.productoClient = productoClient;
+        this.rabbitTemplate = rabbitTemplate;
+    }
 
     public List<Cotizacion> findAll() {
         return cotizacionRepository.findAll();

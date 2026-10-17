@@ -1,7 +1,6 @@
 package com.satelite.gateway.ratelimit;
 
 import com.satelite.gateway.security.JwtUtil;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
@@ -22,7 +21,6 @@ import java.nio.charset.StandardCharsets;
 // Corre antes que JwtAuthenticationFilter (-1) para limitar también los intentos con token inválido
 @Component
 @Slf4j
-@RequiredArgsConstructor
 public class RateLimitFilter implements GlobalFilter, Ordered {
 
     private static final String RUTA_LOGIN = "/api/auth/login";
@@ -30,6 +28,12 @@ public class RateLimitFilter implements GlobalFilter, Ordered {
     private final RateLimitProperties props;
     private final RateLimiter limiter;
     private final JwtUtil jwtUtil;
+
+    public RateLimitFilter(RateLimitProperties props, RateLimiter limiter, JwtUtil jwtUtil) {
+        this.props = props;
+        this.limiter = limiter;
+        this.jwtUtil = jwtUtil;
+    }
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {

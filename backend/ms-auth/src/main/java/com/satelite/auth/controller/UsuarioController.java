@@ -9,17 +9,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
 // X-Auth-User / X-Auth-Role los inyecta ms-gateway a partir del JWT
 @RestController
 @RequestMapping("/api/usuarios")
-@RequiredArgsConstructor
 public class UsuarioController {
 
     private final UsuarioService usuarioService;
+
+    public UsuarioController(UsuarioService usuarioService) {
+        this.usuarioService = usuarioService;
+    }
 
     @GetMapping
     public List<UsuarioResponse> findAll(@RequestHeader(value = "X-Auth-Role", required = false) String rol) {

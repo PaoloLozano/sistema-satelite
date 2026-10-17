@@ -9,17 +9,20 @@ import com.satelite.alertas.telegram.TelegramService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 import java.util.Map;
 
 @Service
-@RequiredArgsConstructor
 public class AlertaService {
 
     private final AlertaRepository alertaRepository;
     private final TelegramService telegramService;
+
+    public AlertaService(AlertaRepository alertaRepository, TelegramService telegramService) {
+        this.alertaRepository = alertaRepository;
+        this.telegramService = telegramService;
+    }
 
     public List<Alerta> findAll() {
         return alertaRepository.findAllByOrderByEnviadoAtDesc();

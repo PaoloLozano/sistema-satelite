@@ -10,18 +10,20 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import lombok.RequiredArgsConstructor;
-
 import java.util.List;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/api/alertas")
-@RequiredArgsConstructor
 public class AlertaController {
 
     private final AlertaService alertaService;
     private final TelegramService telegramService;
+
+    public AlertaController(AlertaService alertaService, TelegramService telegramService) {
+        this.alertaService = alertaService;
+        this.telegramService = telegramService;
+    }
 
     @GetMapping
     public ResponseEntity<List<Alerta>> findAll(@RequestParam(required = false) String tipo) {

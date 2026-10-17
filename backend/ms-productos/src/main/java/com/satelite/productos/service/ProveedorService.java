@@ -6,15 +6,17 @@ import com.satelite.productos.repository.ProveedorRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class ProveedorService {
 
     private final ProveedorRepository proveedorRepository;
+
+    public ProveedorService(ProveedorRepository proveedorRepository) {
+        this.proveedorRepository = proveedorRepository;
+    }
 
     public List<Proveedor> findAll() {
         return proveedorRepository.findAll();

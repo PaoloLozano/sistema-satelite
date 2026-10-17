@@ -4,17 +4,19 @@ import com.satelite.alertas.config.RabbitMQConfig;
 import com.satelite.alertas.entity.Alerta;
 import com.satelite.alertas.event.LoteVencimientoEvent;
 import com.satelite.alertas.service.AlertaService;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
-@RequiredArgsConstructor
 public class LoteVencimientoConsumer {
 
     private final AlertaService alertaService;
+
+    public LoteVencimientoConsumer(AlertaService alertaService) {
+        this.alertaService = alertaService;
+    }
 
     @RabbitListener(queues = RabbitMQConfig.LOTE_QUEUE)
     public void consumir(LoteVencimientoEvent event) {

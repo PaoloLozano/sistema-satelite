@@ -10,7 +10,6 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -19,11 +18,15 @@ import java.util.Map;
 
 @Service
 @Slf4j
-@RequiredArgsConstructor
 public class LoteService {
 
     private final LoteRepository loteRepository;
     private final RabbitTemplate rabbitTemplate;
+
+    public LoteService(LoteRepository loteRepository, RabbitTemplate rabbitTemplate) {
+        this.loteRepository = loteRepository;
+        this.rabbitTemplate = rabbitTemplate;
+    }
 
     public List<Lote> findAll() {
         return loteRepository.findAll();

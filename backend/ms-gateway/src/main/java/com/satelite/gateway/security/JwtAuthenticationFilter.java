@@ -12,17 +12,19 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
 @Component
 @Slf4j
-@RequiredArgsConstructor
 public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
 
     private final JwtUtil jwtUtil;
+
+    public JwtAuthenticationFilter(JwtUtil jwtUtil) {
+        this.jwtUtil = jwtUtil;
+    }
 
     private static final List<String> PUBLIC_PATHS = List.of(
             "/api/auth/login"

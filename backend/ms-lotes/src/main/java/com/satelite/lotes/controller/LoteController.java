@@ -8,18 +8,21 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/api/lotes")
-@RequiredArgsConstructor
 public class LoteController {
 
     private final LoteService loteService;
     private final ResumenService resumenService;
+
+    public LoteController(LoteService loteService, ResumenService resumenService) {
+        this.loteService = loteService;
+        this.resumenService = resumenService;
+    }
 
     @GetMapping
     public ResponseEntity<List<Lote>> findAll() {

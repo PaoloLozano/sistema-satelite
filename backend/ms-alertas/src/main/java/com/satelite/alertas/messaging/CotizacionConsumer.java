@@ -7,15 +7,17 @@ import com.satelite.alertas.event.CotizacionProcesadaEvent;
 import com.satelite.alertas.service.AlertaService;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Component
 @Slf4j
-@RequiredArgsConstructor
 public class CotizacionConsumer {
 
     private final AlertaService alertaService;
+
+    public CotizacionConsumer(AlertaService alertaService) {
+        this.alertaService = alertaService;
+    }
 
     @RabbitListener(queues = RabbitMQConfig.COTIZACION_QUEUE)
     public void consumir(CotizacionProcesadaEvent event) {
