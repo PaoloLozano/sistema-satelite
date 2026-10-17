@@ -48,7 +48,7 @@ class AuthServiceTest {
 
         assertThat(r.getToken()).isEqualTo("token-generado");
         assertThat(r.getNombre()).isEqualTo("Administrador");
-        assertThat(r.getRol()).isEqualTo("ADMIN");
+        assertThat(r.getRol()).isEqualTo("XXXX");
         assertThat(admin.getUltimoAcceso()).isNotNull();
     }
 
