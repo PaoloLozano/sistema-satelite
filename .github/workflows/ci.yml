@@ -8,14 +8,14 @@ on:
 
 jobs:
   build-test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     steps:
       - name: Descargar el código
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Instalar Java 21
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v6
         with:
           distribution: temurin
           java-version: '21'
@@ -27,14 +27,14 @@ jobs:
 
       - name: Guardar reporte de cobertura (JaCoCo)
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: reporte-jacoco
           path: backend/*/target/site/jacoco/
           if-no-files-found: warn
 
       - name: Guardar los .jar
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: jars
           path: backend/*/target/*-1.0.0.jar
