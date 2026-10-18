@@ -1,0 +1,131 @@
+# Versión para Azure: usa imágenes ya construidas por el CI y solo expone los puertos 80 y 443 (Caddy).
+# Uso en la VM:  docker compose -f docker-compose.prod.yml up -d
+# Las variables salen del archivo .env (plantilla: .env.prod.ejemplo)
+
+x-servicio: &servicio
+  restart: unless-stopped
+  environment:
+    CONFIG_HOST: ms-config
+    EUREKA_HOST: ms-eureka
+    DB_HOST: postgres
+    DB_USER: satelite
+    DB_PASS: ${DB_PASS:?falta DB_PASS en el archivo .env}
+    RABBIT_HOST: rabbitmq
+    RABBIT_USER: ${RABBIT_USER:-satelite}
+    RABBIT_PASS: ${RABBIT_PASS:?falta RABBIT_PASS en el archivo .env}
+    JWT_SECRET: ${JWT_SECRET:?falta JWT_SECRET en el archivo .env}
+    TELEGRAM_TOKEN: ${TELEGRAM_TOKEN:-}
+    TELEGRAM_CHAT_ID: ${TELEGRAM_CHAT_ID:-}
+    JAVA_TOOL_OPTIONS: -Xmx256m
+  depends_on:
+    ms-config: { condition: service_healthy }
+    ms-eureka: { condition: service_healthy }
+    postgres:  { condition: service_healthy }
+    rabbitmq:  { condition: service_healthy }
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?falta POSTGRES_PASSWORD en el archivo .env}
+      DB_PASS: ${DB_PASS:?falta DB_PASS en el archivo .env}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      # Crea el usuario satelite y las 5 bases la primera vez que se crea el volumen
+      - ./backend/database/init.sh:/docker-entrypoint-initdb.d/init.sh:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      retries: 10
+
+  rabbitmq:
+    image: rabbitmq:3-alpine
+    restart: unless-stopped
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBIT_USER:-satelite}
+      RABBITMQ_DEFAULT_PASS: ${RABBIT_PASS:?falta RABBIT_PASS en el archivo .env}
+    volumes:
+      - rabbitdata:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 10s
+      retries: 10
+
+  ms-config:
+    image: ${REGISTRY:-ghcr.io/paololozano/sistema-satelite}/ms-config:${TAG:-latest}
+    restart: unless-stopped
+    environment:
+      JAVA_TOOL_OPTIONS: -Xmx256m
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8888/actuator/health || exit 1"]
+      interval: 10s
+      retries: 12
+
+  ms-eureka:
+    image: ${REGISTRY:-ghcr.io/paololozano/sistema-satelite}/ms-eureka:${TAG:-latest}
+    restart: unless-stopped
+    environment:
+      CONFIG_HOST: ms-config
+      JAVA_TOOL_OPTIONS: -Xmx256m
+    depends_on:
+      ms-config: { condition: service_healthy }
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8761/ || exit 1"]
+      interval: 10s
+      retries: 12
+
+  ms-auth:
+    <<: *servicio
+    image: ${REGISTRY:-ghcr.io/paololozano/sistema-satelite}/ms-auth:${TAG:-latest}
+
+  ms-productos:
+    <<: *servicio
+    image: ${REGISTRY:-ghcr.io/paololozano/sistema-satelite}/ms-productos:${TAG:-latest}
+
+  ms-lotes:
+    <<: *servicio
+    image: ${REGISTRY:-ghcr.io/paololozano/sistema-satelite}/ms-lotes:${TAG:-latest}
+
+  ms-cotizaciones:
+    <<: *servicio
+    image: ${REGISTRY:-ghcr.io/paololozano/sistema-satelite}/ms-cotizaciones:${TAG:-latest}
+
+  ms-alertas:
+    <<: *servicio
+    image: ${REGISTRY:-ghcr.io/paololozano/sistema-satelite}/ms-alertas:${TAG:-latest}
+
+  ms-reportes:
+    <<: *servicio
+    image: ${REGISTRY:-ghcr.io/paololozano/sistema-satelite}/ms-reportes:${TAG:-latest}
+
+  # El gateway no se publica: solo se llega a él por /api/ a través de nginx
+  ms-gateway:
+    <<: *servicio
+    image: ${REGISTRY:-ghcr.io/paololozano/sistema-satelite}/ms-gateway:${TAG:-latest}
+
+  frontend:
+    image: ${REGISTRY:-ghcr.io/paololozano/sistema-satelite}/frontend:${TAG:-latest}
+    restart: unless-stopped
+
+  # Único servicio expuesto a internet: HTTPS automático y reenvío al frontend
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    environment:
+      DOMINIO: ${DOMINIO:?falta DOMINIO en el archivo .env}
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - frontend
+
+volumes:
+  pgdata:
+  rabbitdata:
+  caddy_data:
+  caddy_config:
