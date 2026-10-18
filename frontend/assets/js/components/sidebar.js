@@ -23,6 +23,9 @@ window.sidebarListo = (async function (rutaScript) {
   }
   if (user.rol) document.getElementById('rol-usuario').textContent = user.rol;
 
+  // Solo el ADMIN gestiona usuarios: a los demás roles se les oculta toda la sección "Administración"
+  if (user.rol !== 'ADMIN') barra.querySelector('a[href="usuarios.html"]')?.closest('.seccion-nav')?.remove();
+
   const badge = document.getElementById('nb-rojo');
   if (badge) {
     badge.textContent = '';
