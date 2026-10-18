@@ -39,8 +39,62 @@ jobs:
           name: jars
           path: backend/*/target/*-1.0.0.jar
 
-  desplegar:
+  # Construye las 9 imágenes de los servicios y la del frontend, y las publica en GitHub Container Registry.
+  # Solo corre cuando algo llega a main y después de que las pruebas pasen.
+  imagenes:
     needs: build-test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      packages: write
+    env:
+      # GitHub exige el nombre del registro en minúsculas
+      REGISTRO: ghcr.io/paololozano/sistema-satelite
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { nombre: ms-config,       contexto: backend,  dockerfile: backend/ms-config/Dockerfile }
+          - { nombre: ms-eureka,       contexto: backend,  dockerfile: backend/ms-eureka/Dockerfile }
+          - { nombre: ms-gateway,      contexto: backend,  dockerfile: backend/ms-gateway/Dockerfile }
+          - { nombre: ms-auth,         contexto: backend,  dockerfile: backend/ms-auth/Dockerfile }
+          - { nombre: ms-productos,    contexto: backend,  dockerfile: backend/ms-productos/Dockerfile }
+          - { nombre: ms-lotes,        contexto: backend,  dockerfile: backend/ms-lotes/Dockerfile }
+          - { nombre: ms-cotizaciones, contexto: backend,  dockerfile: backend/ms-cotizaciones/Dockerfile }
+          - { nombre: ms-alertas,      contexto: backend,  dockerfile: backend/ms-alertas/Dockerfile }
+          - { nombre: ms-reportes,     contexto: backend,  dockerfile: backend/ms-reportes/Dockerfile }
+          - { nombre: frontend,        contexto: frontend, dockerfile: frontend/Dockerfile }
+
+    steps:
+      - name: Descargar el código
+        uses: actions/checkout@v7
+
+      - name: Preparar Docker Buildx
+        uses: docker/setup-buildx-action@v4
+
+      - name: Iniciar sesión en GitHub Container Registry
+        uses: docker/login-action@v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Construir y publicar ${{ matrix.nombre }}
+        uses: docker/build-push-action@v7
+        with:
+          context: ${{ matrix.contexto }}
+          file: ${{ matrix.dockerfile }}
+          push: true
+          provenance: false
+          tags: |
+            ${{ env.REGISTRO }}/${{ matrix.nombre }}:${{ github.sha }}
+            ${{ env.REGISTRO }}/${{ matrix.nombre }}:latest
+          cache-from: type=gha,scope=${{ matrix.nombre }}
+          cache-to: type=gha,mode=max,scope=${{ matrix.nombre }}
+
+  desplegar:
+    needs: [build-test, imagenes]
     runs-on: ubuntu-24.04
     if: github.ref == 'refs/heads/main'
     environment: produccion
