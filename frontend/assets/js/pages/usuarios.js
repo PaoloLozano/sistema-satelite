@@ -1,6 +1,7 @@
-/* Gestión de usuarios contra ms-auth (/api/usuarios). Solo ADMIN: el backend responde 403 a otros roles. */
+/* Gestión de usuarios contra ms-auth (/api/usuarios). Solo ADMIN: el backend responde 403 a otros roles
+   y el menú oculta esta página; si otro rol entra por la URL, se le devuelve al dashboard. */
 const esAdmin = user.rol === 'ADMIN';
-if (!esAdmin) document.getElementById('aviso-acceso').style.display = 'flex';
+if (!esAdmin) window.location.replace('dashboard.html');
 
 let usuarios    = [];
 let roleFilter  = '';
