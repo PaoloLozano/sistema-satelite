@@ -1,0 +1,106 @@
+# Levanta todo el sistema en contenedores: docker compose up -d --build
+# Los secretos se leen del archivo .env (copia .env.ejemplo a .env)
+
+x-servicio: &servicio
+  restart: unless-stopped
+  environment:
+    CONFIG_HOST: ms-config
+    EUREKA_HOST: ms-eureka
+    DB_HOST: postgres
+    RABBIT_HOST: rabbitmq
+    JWT_SECRET: ${JWT_SECRET:?falta JWT_SECRET en el archivo .env}
+    TELEGRAM_TOKEN: ${TELEGRAM_TOKEN:-}
+    TELEGRAM_CHAT_ID: ${TELEGRAM_CHAT_ID:-}
+    JAVA_TOOL_OPTIONS: -Xmx256m
+  depends_on:
+    ms-config: { condition: service_healthy }
+    ms-eureka: { condition: service_healthy }
+    postgres:  { condition: service_healthy }
+    rabbitmq:  { condition: service_healthy }
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      # Crea el usuario satelite y las 5 bases la primera vez que se crea el volumen
+      - ./backend/database/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    # 5433 en tu PC para no chocar con el PostgreSQL de Windows (5432)
+    ports: ["5433:5432"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      retries: 10
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    ports: ["15672:15672"]
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 10s
+      retries: 10
+
+  ms-config:
+    build: { context: ./backend, dockerfile: ms-config/Dockerfile }
+    restart: unless-stopped
+    environment:
+      JAVA_TOOL_OPTIONS: -Xmx256m
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8888/actuator/health || exit 1"]
+      interval: 10s
+      retries: 12
+
+  ms-eureka:
+    build: { context: ./backend, dockerfile: ms-eureka/Dockerfile }
+    restart: unless-stopped
+    environment:
+      CONFIG_HOST: ms-config
+      JAVA_TOOL_OPTIONS: -Xmx256m
+    depends_on:
+      ms-config: { condition: service_healthy }
+    ports: ["8761:8761"]
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8761/ || exit 1"]
+      interval: 10s
+      retries: 12
+
+  ms-auth:
+    <<: *servicio
+    build: { context: ./backend, dockerfile: ms-auth/Dockerfile }
+
+  ms-productos:
+    <<: *servicio
+    build: { context: ./backend, dockerfile: ms-productos/Dockerfile }
+
+  ms-lotes:
+    <<: *servicio
+    build: { context: ./backend, dockerfile: ms-lotes/Dockerfile }
+
+  ms-cotizaciones:
+    <<: *servicio
+    build: { context: ./backend, dockerfile: ms-cotizaciones/Dockerfile }
+
+  ms-alertas:
+    <<: *servicio
+    build: { context: ./backend, dockerfile: ms-alertas/Dockerfile }
+
+  ms-reportes:
+    <<: *servicio
+    build: { context: ./backend, dockerfile: ms-reportes/Dockerfile }
+
+  ms-gateway:
+    <<: *servicio
+    build: { context: ./backend, dockerfile: ms-gateway/Dockerfile }
+    ports: ["8080:8080"]
+
+  # Frontend estático; el gateway ya permite el origen http://localhost:3500
+  frontend:
+    image: nginx:alpine
+    volumes:
+      - ./frontend:/usr/share/nginx/html:ro
+    ports: ["3500:80"]
+
+volumes:
+  pgdata:

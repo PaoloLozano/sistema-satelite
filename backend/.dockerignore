@@ -1,0 +1,20 @@
+# Archivos que no deben entrar al contexto de construcción de Docker
+
+# Resultado de compilar: Docker lo genera dentro de la imagen
+**/target
+
+# Secretos y scripts locales (el token de Telegram no debe llegar a una imagen)
+secretos.local.ps1
+secretos.local.ps1.ejemplo
+*.ps1
+
+# Scripts SQL: los carga PostgreSQL, no los servicios
+database
+
+# Editores, logs y archivos del sistema
+**/.idea
+**/*.iml
+**/.vscode
+**/*.log
+**/.DS_Store
+**/Thumbs.db
