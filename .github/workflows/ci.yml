@@ -38,3 +38,11 @@ jobs:
         with:
           name: jars
           path: backend/*/target/*-1.0.0.jar
+
+  desplegar:
+    needs: build-test
+    runs-on: ubuntu-24.04
+    if: github.ref == 'refs/heads/main'
+    environment: produccion
+    steps:
+      - run: echo "aquí van los pasos de despliegue a Azure"
