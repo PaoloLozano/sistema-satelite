@@ -43,7 +43,7 @@ document.getElementById('login-form').addEventListener('submit', async e => {
       setLoading(false);
     }
   } catch {
-    showError('No se pudo conectar con el API Gateway (localhost:8080). ¿Están levantados los microservicios?');
+    showError(`No se pudo conectar con el API Gateway (${API || location.host}). ¿Están levantados los microservicios?`);
     setLoading(false);
   }
 });

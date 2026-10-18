@@ -1,0 +1,6 @@
+# HTTPS automático (Let's Encrypt) para el dominio de Azure; DOMINIO viene del archivo .env
+# Para probar en tu PC: DOMINIO=localhost (Caddy usa un certificado propio)
+{$DOMINIO:localhost} {
+	encode gzip
+	reverse_proxy frontend:80
+}
