@@ -3,6 +3,7 @@ target/
 
 # Secretos locales (token de Telegram)
 secretos.local.ps1
+.env
 
 # Editores y herramientas
 .idea/
