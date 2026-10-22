@@ -19,4 +19,6 @@ FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
 COPY --from=build /app/ms-auth/target/*.jar app.jar
 EXPOSE 8081
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# Espera a que ms-config responda antes de arrancar: tras encender la VM Docker inicia todo a la vez
+# y, sin configuración, el servicio arrancaría vacío (el gateway sin rutas). CONFIG_HOST lo define el compose.
+ENTRYPOINT ["sh", "-c", "if [ -n \"$CONFIG_HOST\" ]; then until wget -q -O /dev/null \"http://$CONFIG_HOST:8888/actuator/health\"; do echo 'Esperando a ms-config...'; sleep 3; done; fi; exec java -jar app.jar"]
